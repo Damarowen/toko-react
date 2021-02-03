@@ -9,12 +9,12 @@ class Directory extends React.Component {
         super();
 
         this.state = {
-            sections: [
+            kategori: [
                 {
                     title: 'hats',
                     imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
                     id: 1,
-                    linkUrl: 'shop/hats'
+                    linkUrl: 'hats'
                 },
                 {
                     title: 'jackets',
@@ -31,6 +31,7 @@ class Directory extends React.Component {
                 {
                     title: 'womens',
                     imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
+                    //* size below is for larger display
                     size: 'large',
                     id: 4,
                     linkUrl: 'shop/womens'
@@ -38,6 +39,7 @@ class Directory extends React.Component {
                 {
                     title: 'mens',
                     imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
+                    //* size below is for larger display
                     size: 'large',
                     id: 5,
                     linkUrl: 'shop/mens'
@@ -50,13 +52,16 @@ class Directory extends React.Component {
     render() {
         return (
             <div className='directory-menu'>
-     {this.state.sections.map(({ title, imageUrl, id, size}) => <MenuItem key={id} title={title} imageUrl={imageUrl} size={size}/>   )}
+                {this.state.kategori.map((
+                    //*copy kategori adalah sisa object di kategori
+                    { id, ...copyKatergori} ) => <MenuItem key={id} {...copyKatergori} />  )} 
+                    
             </div>
         )
     }
 
 
 
-} 
+}
 
 export default Directory;
