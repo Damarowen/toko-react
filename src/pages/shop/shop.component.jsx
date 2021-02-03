@@ -3,8 +3,8 @@
 import React from 'react'
 import SHOP_DATA from '../../data/shop.data'
 
-import '../../components/preview-collections/preview.component'
-import PreviewCollection from '../../components/preview-collections/preview.component';
+import '../../components/collection-preview/collection-preview.component'
+import PreviewCollection from '../../components/collection-preview/collection-preview.component';
 
 class ShopPage extends React.Component {
     constructor(props) {
