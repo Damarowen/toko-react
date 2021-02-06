@@ -1,4 +1,4 @@
-import CollectionItem from '../collection-item/collection-item.component'
+import CollectionItem from '../CollectionItem/collection-item.component'
 import './collection-preview.styles.scss'
 
 

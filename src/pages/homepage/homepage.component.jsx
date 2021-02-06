@@ -1,6 +1,6 @@
 
-import Directory from '../../components/directory/directory-component'
-import MenuItem from '../../components/menu-item/menu-item-component'
+import Directory from '../../components/Directory/directory-component'
+import MenuItem from '../../components/MenuItem/menu-item-component'
 
 import './homepage.styles.scss'
 
