@@ -5,7 +5,7 @@ import ShopPage from './pages/shop/shop.component'
 import Header from './components/header/header.component'
 
 import {
-  BrowserRouter as Route, Switch
+  BrowserRouter as Router, Route, Switch
 } from "react-router-dom";
 
 
