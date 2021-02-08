@@ -2,10 +2,10 @@ import './CustomButton.styles.scss'
 
 
 
-const CustomButton = ({ children, ...other }) => {
+const CustomButton = ({ children, googleSignIn, ...other }) => {
     return (
         <div>
-            <button className='custom-button' {...other}>
+            <button className={`${googleSignIn ? 'googleSignIn' : ''}  custom-button`} {...other}>
                 {children}
             </button>
         </div>
