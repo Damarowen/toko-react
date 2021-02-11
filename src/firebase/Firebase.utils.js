@@ -26,7 +26,7 @@ export const createUserProfile = async (userAuth, data) => {
   //* snapshot represent data
   const snapShot = await userRef.get()
 
-//*if exist false
+  //*if exist false
   if (!snapShot.exist) {
     const {
       displayName,

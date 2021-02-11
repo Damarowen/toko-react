@@ -47,15 +47,18 @@ class App extends React.Component {
               id: x.id,
               ...x.data()
             }
-          }, () => { console.log(this.state) })
-        })
 
+          })
+          console.log(this.state)
+
+        })
       } else {
         //* if user log out set to false
         this.setState({ currentUser: userAuth })
       }
 
       setCurrentUser(userAuth);
+
     });
   }
 
