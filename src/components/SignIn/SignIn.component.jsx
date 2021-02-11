@@ -20,8 +20,7 @@ class SignIn extends React.Component {
 
     handleChange = e => {
         const { value, name } = e.target
-        console.log('this is value ' + value)
-        console.log('this is name ' + name)
+//* put all name in one array to handle change
 
         this.setState({ [name]: value })
     }

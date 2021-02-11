@@ -55,7 +55,7 @@ class SignUp extends React.Component {
 
     handleChange = e => {
         const { name, value } = e.target
-
+//* put all name in one array to handle change
         this.setState({ [name]: value })
     }
 

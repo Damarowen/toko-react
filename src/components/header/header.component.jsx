@@ -2,9 +2,13 @@ import './header.styles.scss'
 import { Link } from 'react-router-dom'
 import { auth } from '../../firebase/Firebase.utils'
 
+//*The connect() function connects a React component to a Redux store.
+import { connect } from 'react-redux';
+
+
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 
-const Header = ({ userSession }) => {
+const Header = ({ currentUser }) => {
     return (
         <div className='header'>
             <Link className='logo-container' to='/'>
@@ -18,7 +22,7 @@ const Header = ({ userSession }) => {
                     CONTACT
                 </Link>
                 {
-                    userSession ? 
+                    currentUser ? 
                     <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div> : 
                     <Link  className='option'  to='/signin'> SIGN IN </Link>
                 }
@@ -27,4 +31,9 @@ const Header = ({ userSession }) => {
     )
 }
 
-export default Header;
+//* passing from root reducer
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser
+  });
+  
+  export default connect(mapStateToProps)(Header);
