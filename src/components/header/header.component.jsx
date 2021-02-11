@@ -1,6 +1,7 @@
 import './header.styles.scss'
 import { Link } from 'react-router-dom'
 import { auth } from '../../firebase/Firebase.utils'
+import Cart from '../Cart/Cart'
 
 //*The connect() function connects a React component to a Redux store.
 import { connect } from 'react-redux';
@@ -26,6 +27,8 @@ const Header = ({ currentUser }) => {
                     <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div> : 
                     <Link  className='option'  to='/signin'> SIGN IN </Link>
                 }
+                <Cart/>
+
             </div>
         </div>
     )

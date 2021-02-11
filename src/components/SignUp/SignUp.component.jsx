@@ -10,103 +10,107 @@ import './SignUp.styles.scss'
 //* use class because we need store data
 
 class SignUp extends React.Component {
-  constructor() {
-    super();
 
-    this.state = {
-      displayName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    };
-  }
+    constructor() {
+        super()
 
-  handleSubmit = async event => {
-    event.preventDefault();
+        this.state = {
+            displayName: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+        }
+    }
 
-<<<<<<< HEAD
+    handleSubmit = async e => {
+        const { displayName, email, password, confirmPassword } = this.state;
+
+        e.preventDefault()
+
+        //* match password
+        if (password !== confirmPassword) {
+            alert('tidak sama')
+            return
+        }
+
+        try {
+
+            //* method from auth library
+            const { user } = await auth.createUserWithEmailAndPassword(email, password)
+            await createUserProfile(user, { displayName })
+            console.log(displayName)
+            //* clear form
+            this.setState({
+                displayName: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
+
+            })
+        } catch (err) {
+            console.log(err.message)
+        }
+    }
+
+
     handleChange = e => {
         const { name, value } = e.target
 //* put all name in one array to handle change
         this.setState({ [name]: value })
-=======
-    const { displayName, email, password, confirmPassword } = this.state;
-
-    if (password !== confirmPassword) {
-      alert("passwords don't match");
-      return;
->>>>>>> 790c9db8991563438563871d3cae01221bce15dd
     }
 
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
 
-      await createUserProfile(user, { displayName });
 
-      this.setState({
-        displayName: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      });
-    } catch (error) {
-      console.error(error);
+
+    render() {
+
+        const { displayName, email, password, confirmPassword } = this.state;
+
+        return (
+
+            <div className="sign-up">
+                <h1 className="title">I do not have an account</h1>
+                <span>Sign up with your email and password</span>
+                <form action="" className='sign-up-form' onSubmit={this.handleSubmit}>
+                    <FormInput
+                        type='text'
+                        name='displayName'
+                        value={displayName}
+                        onChange={this.handleChange}
+                        label='Display Name'
+                        required
+                    />
+
+                    <FormInput
+                        type='email'
+                        name='email'
+                        value={email}
+                        onChange={this.handleChange}
+                        label='Email'
+                        required
+                    />
+                    <FormInput
+                        type='password'
+                        name='password'
+                        value={password}
+                        onChange={this.handleChange}
+                        label='Password'
+                        required
+                    />
+                    <FormInput
+                        type='password'
+                        name='confirmPassword'
+                        value={confirmPassword}
+                        onChange={this.handleChange}
+                        label='Confirm Password'
+                        required
+                    />
+                    <CustomButton type='submit'> Sign Up</CustomButton>
+                </form>
+            </div>
+        )
+
     }
-  };
-
-  handleChange = event => {
-    const { name, value } = event.target;
-
-    this.setState({ [name]: value });
-  };
-
-  render() {
-    const { displayName, email, password, confirmPassword } = this.state;
-    return (
-      <div className='sign-up'>
-        <h2 className='title'>I do not have a account</h2>
-        <span>Sign up with your email and password</span>
-        <form className='sign-up-form' onSubmit={this.handleSubmit}>
-          <FormInput
-            type='text'
-            name='displayName'
-            value={displayName}
-            onChange={this.handleChange}
-            label='Display Name'
-            required
-          />
-          <FormInput
-            type='email'
-            name='email'
-            value={email}
-            onChange={this.handleChange}
-            label='Email'
-            required
-          />
-          <FormInput
-            type='password'
-            name='password'
-            value={password}
-            onChange={this.handleChange}
-            label='Password'
-            required
-          />
-          <FormInput
-            type='password'
-            name='confirmPassword'
-            value={confirmPassword}
-            onChange={this.handleChange}
-            label='Confirm Password'
-            required
-          />
-          <CustomButton type='submit'>SIGN UP</CustomButton>
-        </form>
-      </div>
-    );
-  }
 }
 
-export default SignUp;
+export default SignUp
