@@ -8,8 +8,10 @@ import { connect } from 'react-redux';
 
 
 import { ReactComponent as Logo } from '../../assets/crown.svg'
+import CartDropdown from '../CartDropdown/CartDropdown';
 
-const Header = ({ currentUser }) => {
+//* current user and hidden params from mapStateToProps
+const Header = ({ currentUser, hidden }) => {
     return (
         <div className='header'>
             <Link className='logo-container' to='/'>
@@ -28,15 +30,19 @@ const Header = ({ currentUser }) => {
                     <Link  className='option'  to='/signin'> SIGN IN </Link>
                 }
                 <Cart/>
-
             </div>
+            {
+                hidden ? null :  <CartDropdown/>
+
+            }
         </div>
     )
 }
 
 //* passing from root reducer
-const mapStateToProps = state => ({
-    currentUser: state.user.currentUser
+const mapStateToProps = ({user: {currentUser}, cart: {hidden}}) => ({
+    currentUser,
+    hidden
   });
   
   export default connect(mapStateToProps)(Header);
