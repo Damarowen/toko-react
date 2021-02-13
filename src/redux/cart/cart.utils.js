@@ -22,12 +22,11 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
 
   export const removeItemFromCart = (barang, barangYangDihapus) => {
 
-    const existingCartItem = barang.find(
-      cartItem => cartItem.id === barangYangDihapus.id
-    );
-  
+    // const existingCartItem = barang.find(
+    //   cartItem => cartItem.id === barangYangDihapus.id
+    // );
     //* JIKA SISA BARANG SUDAH 1 MAKA HAPUS
-    if (existingCartItem.quantity === 1) {
+    if (barangYangDihapus.quantity === 1) {
       console.log('1', barang)
       const query = barang.filter(cartItem => cartItem.id !== barangYangDihapus.id);
       console.log('2', query)

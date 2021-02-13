@@ -18,11 +18,13 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         case CartActionTypes.ADD_ITEM:
             return {
                 ...state,
+                                           //* cartItem, cartItemToAdd
                 cartItems: addItemToCart(state.cartItems, action.payload)
             };
         case CartActionTypes.REMOVE_SINGLE_ITEM:
             return {
                 ...state,
+                                              //* barang, hapusBarang
                 cartItems: removeItemFromCart(state.cartItems, action.payload)
             };
         case CartActionTypes.REMOVE_ITEM:
