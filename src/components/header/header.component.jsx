@@ -3,8 +3,15 @@ import { Link } from 'react-router-dom'
 import { auth } from '../../firebase/Firebase.utils'
 import Cart from '../Cart/Cart'
 
+//*reselect library
+import { createStructuredSelector } from 'reselect'
+
 //*The connect() function connects a React component to a Redux store.
 import { connect } from 'react-redux';
+
+//* from redux
+import { selectCartHidden } from '../../redux/cart/cart.selector'
+import { selectCurrentUser } from '../../redux/user/user.selector'
 
 
 import { ReactComponent as Logo } from '../../assets/crown.svg'
@@ -40,9 +47,18 @@ const Header = ({ currentUser, hidden }) => {
 }
 
 //* passing from root reducer
-const mapStateToProps = ({user: {currentUser}, cart: {hidden}}) => ({
-    currentUser,
-    hidden
+//*sebelum reselect
+// const mapStateToProps = ({user: {currentUser}, cart: {hidden}}) => ({
+//     currentUser,
+//     hidden
+//   });
+
+
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
   });
+
+
   
   export default connect(mapStateToProps)(Header);
