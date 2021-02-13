@@ -74,8 +74,8 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          //* if no currentUser display redirect home
-          <Route exact path='/signin'render={() => this.props.currentUser ? 
+          {//* if no currentUser display redirect home    
+   }            <Route exact path='/signin'render={() => this.props.currentUser ? 
             (<Redirect to='/' />) : <SignInAndSignUpPage /> } />
         </Switch>
       </div>
@@ -85,6 +85,7 @@ class App extends React.Component {
 }
 
 //* call currentUser from redux
+//* user fromm root reducer
 const mapStateToProps = ({ user }) => ({
 
   currentUser: user.currentUser
