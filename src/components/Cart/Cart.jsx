@@ -9,15 +9,25 @@ import { connect } from 'react-redux'
 import { toggleCartHidden } from '../../redux/cart/cart.actions'
 
 //* toggleCartHidden bisa dipanggil karena sudah di mapDispatchtoProps
-const Cart = ( { toggleCartHidden}) => {
+const Cart = ( { toggleCartHidden, itemCount}) => {
     return <div className='cart-icon' onClick={toggleCartHidden}>
         <ShoppingIcon className='shopping-icon'/>
-        <span className='item-count'>0</span>
+        <span className='item-count'>{itemCount}</span>
     </div>
 }
+
+
+const mapStateToProps = ({ cart: { cartItems}}) => {
+    return{
+        itemCount: cartItems.reduce((total,item) => total + item.quantity, 0)
+    }
+}
+
 
 const mapDispatchToProps = dispatch => () => ({
     toggleCartHidden: () => dispatch(toggleCartHidden())
 })
 
-export default connect(null, mapDispatchToProps)(Cart)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)
