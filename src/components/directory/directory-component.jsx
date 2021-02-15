@@ -1,67 +1,30 @@
 import React from 'react'
 import MenuItem from '../MenuItem/menu-item-component'
 
+//*reselect library
+import { createStructuredSelector } from 'reselect'
+
+//*The connect() function connects a React component to a Redux store.
+import { connect } from 'react-redux';
+
+import { selectDirectoryKategori } from '../../redux/directory/directory.selector'
+
+
 import './directory.styles.scss'
 
-class Directory extends React.Component {
+const Directory = ({ kategori }) => (
 
-    constructor() {
-        super();
+    <div className='directory-menu'>
+        {kategori.map((
+            //*copy kategori adalah sisa object di kategori
+            { id, ...copyKatergori }) => <MenuItem key={id} {...copyKatergori} />)}
 
-        this.state = {
-            kategori: [
-                {
-                    title: 'hats',
-                    imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-                    id: 1,
-                    linkUrl: 'hats'
-                },
-                {
-                    title: 'jackets',
-                    imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-                    id: 2,
-                    linkUrl: 'shop/jackets'
-                },
-                {
-                    title: 'sneakers',
-                    imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-                    id: 3,
-                    linkUrl: 'shop/sneakers'
-                },
-                {
-                    title: 'womens',
-                    imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-                    //* size below is for larger display
-                    size: 'large',
-                    id: 4,
-                    linkUrl: 'shop/womens'
-                },
-                {
-                    title: 'mens',
-                    imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-                    //* size below is for larger display
-                    size: 'large',
-                    id: 5,
-                    linkUrl: 'shop/mens'
-                }
-            ]
-        }
-    }
+    </div>
 
+)
 
-    render() {
-        return (
-            <div className='directory-menu'>
-                {this.state.kategori.map((
-                    //*copy kategori adalah sisa object di kategori
-                    { id, ...copyKatergori} ) => <MenuItem key={id} {...copyKatergori} />  )} 
-                    
-            </div>
-        )
-    }
+const mapStateToProps = createStructuredSelector({
+    kategori: selectDirectoryKategori
+})
 
-
-
-}
-
-export default Directory;
+export default connect(mapStateToProps)(Directory);
