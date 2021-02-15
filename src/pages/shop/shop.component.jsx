@@ -2,34 +2,19 @@
 
 import React from 'react'
 
-import PreviewCollection from '../../components/CollectionPreview/collection-preview.component';
 
-//*reselect library
-import { createStructuredSelector } from 'reselect'
+import CollectionOverview  from '../../components/CollectionOverview/CollectionOverview'
 
-//*The connect() function connects a React component to a Redux store.
-import { connect } from 'react-redux';
-
-import { selectShopKoleksi } from '../../redux/shop/shop.selector'
-
-
-const ShopPage = ({koleksi}) => {
+const ShopPage = () => (
   
-        return <div className='shop-page'>
-            {
-                koleksi.map(({ id, ...copyCollection }) => (
-                    <PreviewCollection key={id} {...copyCollection} />
-                ))
-            }
+        <div className='shop-page'>
+           <CollectionOverview/>
         </div>
     
-}
+)
 
-const mapStateToProps = createStructuredSelector({
-    koleksi: selectShopKoleksi
-})
 
-export default connect(mapStateToProps)(ShopPage);
+export default ShopPage;
 
 
 
