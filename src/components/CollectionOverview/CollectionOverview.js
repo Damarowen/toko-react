@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 import CollectionPreview  from '../CollectionPreview/collection-preview.component'
 
+
 //*selector
 import { selectShopKoleksi } from '../../redux/shop/shop.selector'
 
