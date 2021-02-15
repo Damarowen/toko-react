@@ -20,23 +20,23 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
 
 //* // // // //  //
 
-  export const removeItemFromCart = (barang, barangYangDihapus) => {
+  export const removeItemFromCart = (allBarangDiKeranjang, barangYangDihapus) => {
 
-    // const existingCartItem = barang.find(
-    //   cartItem => cartItem.id === barangYangDihapus.id
-    // );
+    
+allBarangDiKeranjang.map(x => console.log(x))
+
     //* JIKA SISA BARANG SUDAH 1 MAKA HAPUS
     if (barangYangDihapus.quantity === 1) {
-      console.log('1', barang)
-      const query = barang.filter(cartItem => cartItem.id !== barangYangDihapus.id);
-      console.log('2', query)
+      //* cari barang yang tidak sama dengan barang yang dihapus
+      const query = allBarangDiKeranjang.filter(barangDiKeranjang => barangDiKeranjang.id !== barangYangDihapus.id);
       return query
 
     }
   
-    return barang.map(cartItem =>
-      cartItem.id === barangYangDihapus.id
-        ? { ...cartItem, quantity: cartItem.quantity - 1 }
-        : cartItem
+    return allBarangDiKeranjang.map(barangDiKeranjang =>
+      barangDiKeranjang.id === barangYangDihapus.id
+      //* spread equivalent {id: 2, name: "Blue Beanie", imageUrl: "https://i.ibb.co/ypkgK0X/blue-beanie.png", price: 18, quantity: 4}id: 2imageUrl: "https://i.ibb.co/ypkgK0X/blue-beanie.png"name: "Blue Beanie" price: 18 quantity: 4}
+        ? { ...barangDiKeranjang, quantity: barangDiKeranjang.quantity - 1 }
+        : barangDiKeranjang
     );
   };

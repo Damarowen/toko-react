@@ -13,7 +13,7 @@ import { auth, createUserProfile } from './firebase/Firebase.utils'
 //*reselect library
 import { createStructuredSelector } from 'reselect'
 
-import Header from './components/Header/header.component'
+import Header from './components/Header/header'
 
 //* page
 import HomePage from './pages/homepage/homepage.component'
