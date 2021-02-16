@@ -1,6 +1,6 @@
 import './collections.styles.scss'
 
-
+import CollectionItem  from '../../components/CollectionItem/collection-item.component'
 
 //*The connect() function connects a React component to a Redux store.
 import { connect } from 'react-redux';
@@ -8,10 +8,16 @@ import { connect } from 'react-redux';
 import { selectCollection } from '../../redux/shop/shop.selector'
 
 const CollectionsPage = ({ tai }) => {
-    console.log(1, tai)
+    //*title items from shop data
+const { title, items } = tai
     return (
         <div className="collection-page">
-            <h2>COLLECTION PAGE</h2>
+            <h2 className='title'>{title}</h2>
+            <div className="items">
+                {
+                    items.map( barang => <CollectionItem key={barang.id} item={barang}/> )
+                }
+            </div>
         </div>
     )
 }

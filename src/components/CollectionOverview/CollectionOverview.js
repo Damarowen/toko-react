@@ -10,7 +10,7 @@ import CollectionPreview  from '../CollectionPreview/collection-preview.componen
 
 
 //*selector
-import { selectShopKoleksi } from '../../redux/shop/shop.selector'
+import { selectCollectionsForPreview } from '../../redux/shop/shop.selector'
 
 const CollectionOverview = ({koleksi}) => {
    return <div className='collection-overview'>
@@ -23,7 +23,7 @@ const CollectionOverview = ({koleksi}) => {
 }
 
 const mapStateToProps = createStructuredSelector({
-    koleksi: selectShopKoleksi
+    koleksi: selectCollectionsForPreview
 })
 
 export default connect(mapStateToProps)(CollectionOverview);

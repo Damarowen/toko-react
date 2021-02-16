@@ -19,8 +19,19 @@ export const selectShopKoleksi= createSelector(
 )
 
 
+
 //* item refer to params ( sneaker, jackets )
+//* fro collection component
+
 export const selectCollection = collectionUrlParam => createSelector(
     [selectShopKoleksi],
-    collections => collections.find(q => q.routeName === collectionUrlParam)
+    //*use [] when the name of the property is dynamically determined 
+    collections => collections[collectionUrlParam]
 )
+
+
+//* for collection overview
+export const selectCollectionsForPreview = createSelector(
+    [selectShopKoleksi],
+    collections => Object.keys(collections).map(val => collections[val])
+  );
