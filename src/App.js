@@ -8,7 +8,7 @@ import './App.css';
 import { connect } from 'react-redux';
 
 //* Firebase
-import { auth, createUserProfile } from './firebase/Firebase.utils'
+import { auth, createUserProfile, addCollectionAndDocs} from './firebase/Firebase.utils'
 
 //*reselect library
 import { createStructuredSelector } from 'reselect'
@@ -26,6 +26,8 @@ import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selector'
 
 
+import { selectCollectionsForPreview} from './redux/shop/shop.selector'
+
 class App extends React.Component {
   //* no longer needed because redux
   // constructor() {
@@ -39,7 +41,7 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, tai} = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 
@@ -65,6 +67,9 @@ class App extends React.Component {
       }
 
       setCurrentUser(userAuth);
+
+      //*add collection to database by call function , title and items from db
+      addCollectionAndDocs('collections', tai.map(({title}) => ({title}) ))
 
     });
   }
@@ -96,7 +101,8 @@ class App extends React.Component {
 //* call currentUser from redux
 //* user fromm root reducer
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  tai: selectCollectionsForPreview
 })
 
 const mapDispatchToProps = dispatch => ({

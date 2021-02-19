@@ -52,6 +52,23 @@ export const createUserProfile = async (userAuth, data) => {
   return userRef
 }
 
+//* fucnction to save shop collection in firebase
+export const addCollectionAndDocs = async ( collectionKey, objectToAdd) => {
+  //* create collection using collectionKey
+  const collectionRef = firestore.collection(collectionKey)
+  console.log(collectionRef)
+
+  //* take all request to batch
+  const batch = firestore.batch();
+  objectToAdd.forEach(obj => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj)
+  })
+
+  return await batch.commit()
+
+}
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
