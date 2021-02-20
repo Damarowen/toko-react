@@ -41,7 +41,7 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser, tai} = this.props;
+    const { setCurrentUser, koleksi} = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 
@@ -69,7 +69,7 @@ class App extends React.Component {
       setCurrentUser(userAuth);
 
       //*add collection to database by call function , title and items from db
-      addCollectionAndDocs('collections', tai.map(({title}) => ({title}) ))
+      // addCollectionAndDocs('koleksi', koleksi.map(({title,items}) => ({title,items}) ))
 
     });
   }
@@ -102,7 +102,7 @@ class App extends React.Component {
 //* user fromm root reducer
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  tai: selectCollectionsForPreview
+  koleksi: selectCollectionsForPreview
 })
 
 const mapDispatchToProps = dispatch => ({

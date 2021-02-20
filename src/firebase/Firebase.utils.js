@@ -69,6 +69,31 @@ export const addCollectionAndDocs = async ( collectionKey, objectToAdd) => {
 
 }
 
+//* function to get data from firestore. it will return array
+export const getDataFromFirestore = koleksi => {
+  const query = koleksi.docs.map(doc => {
+    const { title, items } = doc.data()
+
+    return {
+      // routeName: encodeURI(title.toLowerCase()),
+      routeName: title.toLowerCase(),
+      id: doc.id,
+      title,
+      items
+    }
+  })
+
+  console.log(query)
+  
+  //*passing query to store in reducer
+  //* reduce array
+ return query.reduce((acc,collection) => { 
+   //*hats equal to hats and return
+   acc[collection.title.toLowerCase()] = collection;
+    return acc
+  }, {})
+}
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
