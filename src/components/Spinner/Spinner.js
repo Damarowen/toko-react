@@ -1,16 +1,16 @@
 import React from 'react'
 
-import './Spinner.styles.scss'
+import './Spinneer.styles.scss'
 
-const Spinner = WrappedComponent => {
+const Spinner = NextComponent => {
 const spinner = ({isLoading, ...other}) => {
+   //* other { history, location, params}
     return isLoading ? (
         <div className="SpinnerOverlay">
-            <h1 className="ss">saasdsad</h1>
             <div className="SpinnerContainer" />
             </div>
     ) : (
-        <WrappedComponent { ...other}/>
+        <NextComponent { ...other}/>
     )
 }
 return spinner;
