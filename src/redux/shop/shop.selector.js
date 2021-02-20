@@ -26,12 +26,12 @@ export const selectShopKoleksi= createSelector(
 export const selectCollection = collectionUrlParam => createSelector(
     [selectShopKoleksi],
     //*use [] when the name of the property is dynamically determined 
-    collections => collections[collectionUrlParam]
+    collections => collections ? collections[collectionUrlParam] : null
 )
 
 
 //* for collection overview
 export const selectCollectionsForPreview = createSelector(
     [selectShopKoleksi],
-    collections => Object.keys(collections).map(val => collections[val])
+    collections => collections ? Object.keys(collections).map(val => collections[val]) : []
   );
