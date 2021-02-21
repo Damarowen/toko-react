@@ -49,22 +49,21 @@ class App extends React.Component {
         const userRef = await createUserProfile(userAuth)
 
         //*on snapsot is similiar with on state change
-        userRef.onSnapshot(x => {
+        userRef.onSnapshot(snapshot => {
 
           setCurrentUser({
             currentUser: {
-              id: x.id,
-              ...x.data()
+              id: snapshot.id,
+              ...snapshot.data()
             }
 
           })
           console.log(this.state)
-
         })
-      } else {
-        //* if user log out set to false
-        this.setState({ currentUser: userAuth })
-      }
+      } 
+      // else {
+      //   this.setState({ currentUser: userAuth })
+      // }
 
       setCurrentUser(userAuth);
 

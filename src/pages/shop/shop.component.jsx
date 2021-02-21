@@ -37,6 +37,7 @@ class ShopPage extends React.Component {
                 const collectionRef = firestore.collection('koleksi');
 
                 //* use this to get data from koleksi firebase
+                //*get() return promise so after that use then
                 collectionRef.get().then(snapshot => {
                         const collectionsMap = getDataFromFirestore(snapshot);
                         updateCollections(collectionsMap);

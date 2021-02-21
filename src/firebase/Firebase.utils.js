@@ -16,6 +16,8 @@ const firebaseConfig = {
   measurementId: "G-W1LDTG1BQW"
 };
 
+firebase.initializeApp(firebaseConfig);
+
 export const createUserProfile = async (userAuth, data) => {
   if (!userAuth) return;
 
@@ -44,7 +46,7 @@ export const createUserProfile = async (userAuth, data) => {
         ...data
       })
     } catch (err) {
-      console.log(err.message)
+      console.log('error creating user', err.message);
     }
   }
   console.log(snapShot)
@@ -53,7 +55,7 @@ export const createUserProfile = async (userAuth, data) => {
 }
 
 //* fucnction to save shop collection in firebase
-export const addCollectionAndDocs = async ( collectionKey, objectToAdd) => {
+export const addCollectionAndDocs = async (collectionKey, objectToAdd) => {
   //* create collection using collectionKey
   const collectionRef = firestore.collection(collectionKey)
   console.log(collectionRef)
@@ -72,7 +74,10 @@ export const addCollectionAndDocs = async ( collectionKey, objectToAdd) => {
 //* function to get data from firestore. it will return array
 export const getDataFromFirestore = koleksi => {
   const query = koleksi.docs.map(doc => {
-    const { title, items } = doc.data()
+    const {
+      title,
+      items
+    } = doc.data()
 
     return {
       // routeName: encodeURI(title.toLowerCase()),
@@ -84,18 +89,17 @@ export const getDataFromFirestore = koleksi => {
   })
 
   console.log(query)
-  
+
   //*passing query to store in reducer
   //* reduce array
- return query.reduce((acc,collection) => { 
-   //*hats equal to hats and return
-   acc[collection.title.toLowerCase()] = collection;
+  return query.reduce((acc, collection) => {
+    //*hats equal to hats and return
+    acc[collection.title.toLowerCase()] = collection;
     return acc
   }, {})
 }
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
