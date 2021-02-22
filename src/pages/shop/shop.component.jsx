@@ -1,6 +1,6 @@
 
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 //*route 
 import { Route } from 'react-router-dom'
@@ -24,16 +24,13 @@ const SpinnerCollectionPage = Spinner(CollectionsPage)
 
 
 //* match, location, history from react router dom
-class ShopPage extends React.Component {
+const ShopPage = ({ match, updateCollections }) => {
 
-        state = {
-                loading: true
-        };
 
-        unsubscribeFromSnapshot = null;
+        //* toggle button app
+        const [Loading, setLoading] = useState(true)
 
-        componentDidMount() {
-                const { updateCollections } = this.props
+        useEffect(() => {
                 const collectionRef = firestore.collection('koleksi');
 
                 //* use this to get data from koleksi firebase
@@ -41,28 +38,24 @@ class ShopPage extends React.Component {
                 collectionRef.get().then(snapshot => {
                         const collectionsMap = getDataFromFirestore(snapshot);
                         updateCollections(collectionsMap);
-                        this.setState({ loading: false });
-                });
-        }
+                        setLoading(false);
+                })
+        }, [updateCollections, Loading])
 
-        render() {
-                const { match } = this.props
-                const { loading } = this.state
-                return (
-                        <div className='shop-page' >
-                                <Route exact path={`${match.path}`} >
-                                        {
-                                                loading ? <SpinnerCollectionOverview isLoading={loading} /> : <CollectionOverview />
-                                        }
-                                </Route>
-                                <Route path={`${match.path}/:idCollections`} render={props => (
-                                        <SpinnerCollectionPage isLoading={loading} {...props} />
-                                )}
-                                />
-                        </div>
+        return (
+                <div className='shop-page' >
+                        <Route exact path={`${match.path}`} >
+                                {
+                                        Loading ? <SpinnerCollectionOverview isLoading={Loading} /> : <CollectionOverview />
+                                }
+                        </Route>
+                        <Route path={`${match.path}/:idCollections`} render={props => (
+                                <SpinnerCollectionPage isLoading={Loading} {...props} />
+                        )}
+                        />
+                </div>
 
-                )
-        }
+        )
 }
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,6 @@
 
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 
@@ -8,7 +8,7 @@ import './App.css';
 import { connect } from 'react-redux';
 
 //* Firebase
-import { auth, createUserProfile, addCollectionAndDocs} from './firebase/Firebase.utils'
+import { auth, createUserProfile, addCollectionAndDocs } from './firebase/Firebase.utils'
 
 //*reselect library
 import { createStructuredSelector } from 'reselect'
@@ -26,24 +26,17 @@ import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selector'
 
 
-import { selectCollectionsForPreview} from './redux/shop/shop.selector'
+import { selectCollectionsForPreview } from './redux/shop/shop.selector'
 
-class App extends React.Component {
-  //* no longer needed because redux
-  // constructor() {
-  //   super();
+const App = ({ setCurrentUser, currentUser }) => {
 
-  //   this.state = {
-  //     currentUser: null
-  //   };
-  // }
+  // const unsubscribeFromAuth = null;
 
-  unsubscribeFromAuth = null;
+  //* component did mount
+  useEffect(() => {
+    console.log('I am subscribed')
 
-  componentDidMount() {
-    const { setCurrentUser, koleksi} = this.props;
-
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 
       if (userAuth) {
         const userRef = await createUserProfile(userAuth)
@@ -58,42 +51,41 @@ class App extends React.Component {
             }
 
           })
-          console.log(this.state)
         })
-      } 
-      // else {
-      //   this.setState({ currentUser: userAuth })
-      // }
-
-      setCurrentUser(userAuth);
+      }
+      else {
+        setCurrentUser(userAuth)
+      }
 
       //*add collection to database by call function , title and items from db
       // addCollectionAndDocs('koleksi', koleksi.map(({title,items}) => ({title,items}) ))
 
-    });
-  }
+    })
+
+    //* componentWillUnmount()
+    return () => {
+      console.log('I am unsubscribed')
+      unsubscribeFromAuth()
+    }
+
+    
+  }, [setCurrentUser])
 
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path='/' component={HomePage} />
+        <Route path='/shop' component={ShopPage} />
+        <Route exact path='/checkout' component={CheckoutPage} />
 
-  render() {
-    return (
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
-
-          {//* if no currentUser display redirect home    
-   }            <Route exact path='/signin'render={() => this.props.currentUser ? 
-            (<Redirect to='/' />) : <SignInAndSignUpPage /> } />
-        </Switch>
-      </div>
-    );
-  }
+        {//* if no currentUser display redirect home    
+        }            <Route exact path='/signin' render={() => currentUser ?
+          (<Redirect to='/' />) : <SignInAndSignUpPage />} />
+      </Switch>
+    </div>
+  );
 
 }
 

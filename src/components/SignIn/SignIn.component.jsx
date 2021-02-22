@@ -9,21 +9,15 @@ import { auth, signInWithGoogle } from '../../firebase/Firebase.utils'
 
 const SignIn = () => {
 
-    const [ userAuth, setAuth ] = useState({ email: '', password: ''})
+    const [userAuth, setAuth] = useState({ email: '', password: '' })
 
     const { email, password } = userAuth
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        await auth.signInWithEmailAndPassword(email, password)
+        setAuth({ email: "", password: "" })
 
-        try {
-            await auth.signInWithEmailAndPassword(email, password)
-            this.setState({ email: "", password: "" })
-
-        } catch (err) {
-            console.log(err)
-
-        }
 
     }
 
@@ -32,26 +26,26 @@ const SignIn = () => {
 
         //* put all name in one array to handle change
 
-        setAuth({...userAuth ,[name]: value })
+        setAuth({ ...userAuth, [name]: value })
     }
 
 
-        return (
-            <div className='sign-in'>
-                <h2> I already have an account </h2>
-                <span>Sign in with your email</span>
+    return (
+        <div className='sign-in'>
+            <h2> I already have an account </h2>
+            <span>Sign in with your email</span>
 
-                <form onSubmit={handleSubmit}>
-                    <FormInput label='email' name='email' type='email' value={email} handleChange={handleChange} required />
-                    <FormInput label='password' name='password' type='password' value={password} handleChange={handleChange} required />
-                    <div className='buttons'>
+            <form onSubmit={handleSubmit}>
+                <FormInput label='email' name='email' type='email' value={email} handleChange={handleChange} required />
+                <FormInput label='password' name='password' type='password' value={password} handleChange={handleChange} required />
+                <div className='buttons'>
 
-                        <CustomButton type='submit'> Sign In </CustomButton>
-                        <CustomButton onClick={signInWithGoogle} googleSignIn>Google Sign In</CustomButton>
-                    </div>
-                </form>
-            </div>
-        )
-    
+                    <CustomButton type='submit'> Sign In </CustomButton>
+                    <CustomButton onClick={signInWithGoogle} googleSignIn>Google Sign In</CustomButton>
+                </div>
+            </form>
+        </div>
+    )
+
 }
 export default SignIn
